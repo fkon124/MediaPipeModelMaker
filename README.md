@@ -74,8 +74,8 @@ Model prepoznaje 9 klasa gesta:
 
 ## Preduvjeti
 
-- **Windows:** Python 3.9–3.11, webcam
-- **WSL:** Ubuntu 20.04+ (npr. WSL2 s Ubuntu distribucijom), Python 3.9–3.11
+- **Windows:** Python 3.10.xx, webcam
+- **WSL:** Ubuntu 20.04+ (npr. WSL2 s Ubuntu distribucijom), Python 3.10.xx
 - `mediapipe-model-maker` **ne radi na Windowsu** — zato trening mora biti u WSL-u
 
 ---
