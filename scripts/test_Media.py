@@ -95,7 +95,6 @@ def run_webcam(task_model_path: Path, camera_id: int) -> None:
     mp_styles = mp.solutions.drawing_styles
     print("Izlaz: tipka Q ili ESC.")
 
-    # Monotoni sat — garantira strogo rastuće timestamps
     start_time = time.monotonic()
 
     try:
@@ -120,17 +119,14 @@ def run_webcam(task_model_path: Path, camera_id: int) -> None:
                 
                 draw_landmarks_on_frame(frame, result, mp_hands, mp_drawing, mp_styles)
 
-                # Strogo rastući timestamp u ms
                 timestamp_ms = int((time.monotonic() - start_time) * 1000)
 
-                # Predikcija samo kad je ruka detektirana
                 if result.multi_hand_landmarks:
                     name, score = predict(recognizer, clean_frame, timestamp_ms)
                     hand = result.multi_handedness[0].classification[0].label if result.multi_handedness else "?"
                     hr = LABEL_HR.get(name, name)
                     line = f"{hr} ({score:.2f}) [{hand}]"
                 else:
-                    # Mora se pozvati i bez ruke da timestamp ne zastari
                     predict(recognizer, clean_frame, timestamp_ms)
                     line = "Nema geste"
 
