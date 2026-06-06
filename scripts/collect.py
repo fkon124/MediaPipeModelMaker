@@ -99,7 +99,7 @@ def collect():
                 break
 
             frame = cv2.flip(frame, 1)
-            clean_frame = frame.copy()  # čuvaj frame BEZ landmaraka za spremanje
+            clean_frame = frame.copy() 
             rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             rgb.flags.writeable = False
             result = hands.process(rgb)
@@ -129,7 +129,6 @@ def collect():
                 auto_save = not auto_save
                 print(f"Auto-snimanje: {'ON' if auto_save else 'OFF'}")
 
-            # Spremi frame
             should_save = key in (ord("s"), ord("S"))
             if auto_save and hand_detected:
                 now = time.time()
@@ -140,7 +139,6 @@ def collect():
                 folder = DATA_DIR / active_gesture
                 idx = sample_index[active_gesture]
                 path = folder / f"{active_gesture}_{idx:05d}.jpg"
-                # Spremi trenutni clean_frame (bez ucrtanih landmaraka)
                 cv2.imwrite(str(path), clean_frame)
                 sample_index[active_gesture] += 1
                 last_save_time = time.time()
