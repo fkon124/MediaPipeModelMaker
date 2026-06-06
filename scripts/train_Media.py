@@ -130,7 +130,6 @@ def augment_image(img: np.ndarray) -> list[np.ndarray]:
 
 
 def augment_dataset(data_dir: Path) -> None:
-    """Augmentira samo validirane originale (bez aug_ prefiksa)."""
     print("\n=== AUGMENTACIJA DATASETA ===")
     total_added = 0
 
@@ -174,7 +173,7 @@ def validate_dataset(data_dir: Path) -> None:
             if not gesture_dir.is_dir():
                 continue
             jpg_files = sorted(gesture_dir.glob("*.jpg"))
-            # Validiraj samo originale, aug_ slike ne diraj
+            # validacija orig, ne _aug
             originals = [f for f in jpg_files if not f.stem.startswith("aug_")]
             removed = 0
             for jpg in originals:
@@ -205,10 +204,10 @@ def train_mediapipe_model(
     export_dir: Path,
     epochs: int,
 ) -> None:
-    # 1. Validiraj originale — makni one bez ruke
+    # Validiraj originale — makni one bez ruke
     validate_dataset(dataset_dir)
 
-    # 2. Augmentiraj samo od validiranih originala
+    # Augmentiraj samo od validiranih originala
     augment_dataset(dataset_dir)
 
     print("Ucitavam dataset iz stvarnih slika...")
